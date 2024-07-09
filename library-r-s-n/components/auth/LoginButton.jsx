@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
+//NOTE: Get rid of this button, add routing functionality to StyledButton!
 export function LoginButton({ children, mode="redirect", isChild })
 {
     /*

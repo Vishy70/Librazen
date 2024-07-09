@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 
+//TODO: Add customization to Card component
 export function Card({ children, className }) {
   return (
     <div className={clsx("bg-violet-50 shadow-md rounded-lg overflow-hidden", className)}>
