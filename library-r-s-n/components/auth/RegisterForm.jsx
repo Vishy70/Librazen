@@ -1,30 +1,31 @@
-"use client";
+//"use client";
 
 import React from "react";
-import { useState } from "react";
+//import { useState } from "react";
 
 import CardWrapper from "@/components/auth/CardWrapper";
 import { Form, FormGroup, FormLabel, Input } from "@/components/ui/Forms";
 import { StyledButton } from "../ui/StyledButton";
+import { signUpWithEmailAndPassword } from "@/supabase/actions/supabase-actions";
 
 export default function LoginForm() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+  // const [formData, setFormData] = useState({
+  //   name: "",
+  //   email: "",
+  //   password: "",
+  // });
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => {
-      return {
-        ...prevData,
-        [name]: value,
-      };
-    });
-  };
+//   const handleChange = (event) => {
+//     const { name, value } = event.target;
+//     setFormData((prevData) => {
+//       return {
+//         ...prevData,
+//         [name]: value,
+//       };
+//     });
+//   };
 
-  const handleSubmit = () => {};
+  //const handleSubmit = () => {};
 
   return (
     <CardWrapper
@@ -34,15 +35,15 @@ export default function LoginForm() {
       redirectButtonHref="/login"
       showSocial={true}
     >
-      <Form onSubmit={handleSubmit}>
+      <Form action={signUpWithEmailAndPassword}>
       <FormGroup>
-          <FormLabel htmlFor="email">Name</FormLabel>
+          <FormLabel htmlFor="username">Name</FormLabel>
           <Input
-            id="name"
+            id="username"
             type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
+            name="username"
+            //value={formData.name}
+            //onChange={handleChange}
             placeholder={"Namey"}
             required
           />
@@ -54,8 +55,8 @@ export default function LoginForm() {
             id="email"
             type="email"
             name="email"
-            value={formData.email}
-            onChange={handleChange}
+            // value={formData.email}
+            // onChange={handleChange}
             placeholder={"user@email.com"}
             required
           />
@@ -67,14 +68,14 @@ export default function LoginForm() {
             id="password"
             type="password"
             name="password"
-            value={formData.password}
-            onChange={handleChange}
+            // value={formData.password}
+            // onChange={handleChange}
             placeholder={"******"}
             required
           />
         </FormGroup>
 
-        <StyledButton variant="secondary" size="md" className={"w-full"}>
+        <StyledButton variant="secondary" size="md" className={"w-full"} type="submit">
           Enter Librazen
         </StyledButton>
       </Form>

@@ -22,7 +22,7 @@ export function Navbar({ children, className, variant = "dark", size = "md" }) {
   return (
     <nav
       className={clsx(
-        "top-0 flex items-center justify-between px-10 mb-5",
+        "top-0 flex items-center justify-between px-10 mb-5 rounded-b-xl",
         variants[variant],
         sizes[size],
         className
@@ -37,7 +37,10 @@ export function Brand({ children, className, href }) {
   return (
     <Link
       href={href}
-      className={clsx("text-3xl text-violet-200 font-extrabold transition-transform duration-300 ease-in-out transform hover:scale-105 hover:text-violet-500", className)}
+      className={clsx(
+        "text-3xl text-violet-200 font-extrabold transition-transform duration-300 ease-in-out transform hover:scale-105 hover:text-violet-500",
+        className
+      )}
     >
       {children}
     </Link>
@@ -52,8 +55,12 @@ export function Nav({ children, className, alignment = "right" }) {
   );
 }
 
-export function NavItem({ children, className }) {
-  return <div className={clsx("flex items-center", className)}>{children}</div>;
+export function NavItem({ children, className, action }) {
+  return (
+    <form action={action} className={clsx("flex items-center", className)}>
+      {children}
+    </form>
+  );
 }
 
 export function NavLink({ children, className, href }) {
