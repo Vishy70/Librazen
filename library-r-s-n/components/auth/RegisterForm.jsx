@@ -1,31 +1,16 @@
-//"use client";
-
-import React from "react";
-//import { useState } from "react";
-
 import CardWrapper from "@/components/auth/CardWrapper";
 import { Form, FormGroup, FormLabel, Input } from "@/components/ui/Forms";
 import { StyledButton } from "../ui/StyledButton";
 import { signUpWithEmailAndPassword } from "@/supabase/actions/supabase-actions";
+import { supabaseAppServerClient } from "@/supabase/server";
 
-export default function LoginForm() {
-  // const [formData, setFormData] = useState({
-  //   name: "",
-  //   email: "",
-  //   password: "",
-  // });
+export default async function LoginForm() {
+  const supabase = supabaseAppServerClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-//   const handleChange = (event) => {
-//     const { name, value } = event.target;
-//     setFormData((prevData) => {
-//       return {
-//         ...prevData,
-//         [name]: value,
-//       };
-//     });
-//   };
-
-  //const handleSubmit = () => {};
+  if (user) redirect("/home");
 
   return (
     <CardWrapper
@@ -36,7 +21,7 @@ export default function LoginForm() {
       showSocial={true}
     >
       <Form action={signUpWithEmailAndPassword}>
-      <FormGroup>
+        <FormGroup>
           <FormLabel htmlFor="username">Name</FormLabel>
           <Input
             id="username"
@@ -75,7 +60,12 @@ export default function LoginForm() {
           />
         </FormGroup>
 
-        <StyledButton variant="secondary" size="md" className={"w-full"} type="submit">
+        <StyledButton
+          variant="secondary"
+          size="md"
+          className={"w-full"}
+          type="submit"
+        >
           Enter Librazen
         </StyledButton>
       </Form>

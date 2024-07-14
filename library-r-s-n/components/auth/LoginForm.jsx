@@ -1,25 +1,16 @@
-//"use client";
-
-//import React, { useState } from "react";
-
 import CardWrapper from "@/components/auth/CardWrapper";
 import { Form, FormGroup, FormLabel, Input } from "@/components/ui/Forms";
 import { StyledButton } from "@/components/ui/StyledButton";
-import { signInWithEmailAndPassword, signUpWithEmailAndPassword } from "@/supabase/actions/supabase-actions";
+import { signInWithEmailAndPassword } from "@/supabase/actions/supabase-actions";
+import { supabaseAppServerClient } from "@/supabase/server";
 
-export default function LoginForm() {
-  // const [formData, setFormData] = useState({
-  //   email: "",
-  //   password: "",
-  // });
+export default async function LoginForm() {
+  const supabase = supabaseAppServerClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  // const handleChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     [name]: value,
-  //   }));
-  // };
+  if (user) redirect("/home");
 
   return (
     <CardWrapper
