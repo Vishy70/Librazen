@@ -3,6 +3,7 @@ import { Form, FormGroup, FormLabel, Input } from "@/components/ui/Forms";
 import { StyledButton } from "../ui/StyledButton";
 import { signUpWithEmailAndPassword } from "@/supabase/actions/supabase-actions";
 import { supabaseAppServerClient } from "@/supabase/server";
+import { redirect } from "next/navigation";
 
 export default async function LoginForm() {
   const supabase = supabaseAppServerClient();

@@ -43,14 +43,28 @@ export async function signUpWithEmailAndPassword(formData) {
       },
     },
   });
-  const { error, data } = response;
+  const {
+    error,
+    data: { user },
+  } = response;
 
   if (error) {
     console.log(error);
     redirect("/register?message=Could not signup user");
   }
+  //Manually insert user intom customers table!
+  const { errorInsert } = await supabase.from("customers").insert({
+    customer_id: user.id,
+    username: user.user_metadata.username,
+    email: user.user_metadata.email,
+  });
 
+  console.log(user);
   revalidatePath("/", "layout");
+  if (errorInsert) {
+    console.log(errorInsert);
+    redirect("/home?message=Fatal error, user not in database");
+  }
   redirect("/home");
 }
 
@@ -68,20 +82,21 @@ export async function OAuthSignIn(provider) {
 
   const supabase = supabaseAppServerClient();
   const redirectUrl = getURL("/callback");
-  console.log(redirectUrl)
+  console.log(redirectUrl);
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider,
     options: {
       redirectTo: redirectUrl,
     },
   });
-  console.log(data)
+  console.log(data);
 
-  if(error)
-  {
-    redirect(`/login?message=Could not authenticate user with ${provider} provider`)
+  if (error) {
+    redirect(
+      `/login?message=Could not authenticate user with ${provider} provider`
+    );
   }
-  
-  console.log("Passed error")
-  redirect(data.url)
+
+  console.log("Passed error");
+  redirect(data.url);
 }

@@ -5,7 +5,7 @@ import { Header } from "@/components/auth/Header"
 import { Social } from "@/components/auth/Social"
 import { Redirect } from "./Redirect"
 
-export default function CardWrapper({ children, headerTitle, headerLabel, redirectButtonLabel, redirectButtonHref, showSocial })
+export default function CardWrapper({ children, headerTitle="", headerLabel="", redirectButtonLabel="", redirectButtonHref = "", showSocial = false })
 {
     return (
         <Card className="w-[400px]">

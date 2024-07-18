@@ -24,6 +24,7 @@ export function StyledButton({
   variant = "primary",
   size = "md",
   type = "button",
+  ...params
 }) {
   const { pending } = useFormStatus()
 
@@ -37,6 +38,7 @@ export function StyledButton({
         variants[variant],
         sizes[size],
         className,
+        {...params}
       )}
     >
       {children}

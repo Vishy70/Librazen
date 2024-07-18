@@ -45,10 +45,12 @@ export async function updateSession(request) {
     !request.nextUrl.pathname.startsWith("/login") &&
     !request.nextUrl.pathname.startsWith("/register") &&
     !request.nextUrl.pathname.startsWith("/forgot-password") &&
-    !request.nextUrl.pathname.startsWith("/confirm")
+    !request.nextUrl.pathname.startsWith("/confirm") &&
+    request.nextUrl.pathname !== "/"
   ) {
     // no user, potentially respond by redirecting the user to the login page
-    //console.log("Entered if!")
+    console.log(request.nextUrl.pathname)
+    console.log("Entered if!")
     const url = request.nextUrl.clone();
     url.pathname = "/";
     return NextResponse.redirect(url);
@@ -67,6 +69,5 @@ export async function updateSession(request) {
   // If this is not done, you may be causing the browser and server to go out
   // of sync and terminate the user's session prematurely!
 
-  console.log("Mangled")
   return response;
 }
