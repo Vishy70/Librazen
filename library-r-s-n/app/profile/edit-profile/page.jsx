@@ -2,7 +2,7 @@ import ProfileWrapper from "@/components/profile/ProfileWrapper";
 import { getInitialUserData } from "@/supabase/actions/supabase-actions";
 import { supabaseAppServerClient } from "@/supabase/server";
 
-export default async function Profile() {
+export default async function EditProfile() {
   const supabase = supabaseAppServerClient();
   const [{ username, email, address, phone, profile_picture, wallet }] =
     await getInitialUserData();

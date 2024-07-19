@@ -1,14 +1,9 @@
 import {
-  Brand,
   Nav,
   Navbar,
-  NavItem,
-  NavLink,
 } from "@/components/ui/NavComponents";
-import { RiLogoutBoxRLine } from "react-icons/ri";
-import { signOut } from "@/supabase/actions/supabase-actions";
-import { clsx } from "clsx";
-import { getInitialUserData } from "./actions";
+import { getInitialUserData } from "@/supabase/actions/supabase-actions";
+import { adminList } from "@/utils/links";
 
 export const metadata = {
   title: "Create Next App",
@@ -16,73 +11,33 @@ export const metadata = {
 };
 
 export default async function HomeTemplate({ children }) {
-  const [{ customer_id, username, email, is_admin }] =
+  const [{ customer_id, username, email, is_admin, profile_picture }] =
     await getInitialUserData();
-  //console.log(is_admin)
 
-  const brand = { text: "Librazen", href: "/home" };
-  let links = [
-    { text: "Admin", href: "/admin", alignment: "left" },
-    // { text: "Catalogue", href: "/catalogue", alignment: "center" },
-    // { text: "Profile", href: "/profile", alignment: "right" },
-    // { text: "Cart", href: "/cart", alignment: "right" },
-    {
-      text: "Logout",
-      href: "/",
-      alignment: "right",
-      children: <RiLogoutBoxRLine className="size-7" />,
-    },
-  ];
+  let links = [...adminList]
 
-  //Section to check user's admin auth... change links here
-  if (!is_admin) {
-    links = links.filter((link) => link.text !== "Admin"); //splice(0, 1); //hard-coded for now...
-  }
-
-  const leftLinks = links.filter((link) => link.alignment === "left");
-  const centerLinks = links.filter((link) => link.alignment === "center");
-  const rightLinks = links.filter((link) => link.alignment === "right");
+  const [brand] = links.filter((link) => link && link.text === "Librazen")
+  const leftLinks = links.filter((link) => link && link.alignment === "left");
+  const centerLinks = links.filter((link) => link &&link.alignment === "center");
+  const rightLinks = links.filter((link) => link && link.alignment === "right");
 
   return (
     <>
       <Navbar>
-        <Brand href={brand.href}>{brand.text}</Brand>
+        {brand.component}
         <Nav alignment="left">
           {leftLinks.map((link) => (
-            <NavItem key={link.href}>
-              <NavLink href={link.href}>{link.text}</NavLink>
-            </NavItem>
+            link.component
           ))}
         </Nav>
         <Nav alignment="center">
           {centerLinks.map((link) => (
-            <NavItem key={link.href}>
-              <NavLink href={link.href}>{link.text}</NavLink>
-            </NavItem>
+            link.component
           ))}
         </Nav>
         <Nav alignment="right">
           {rightLinks.map((link) => (
-            <NavItem
-              key={link.href}
-              action={link.text === "Logout" ? signOut : undefined}
-            >
-              {link.text !== "Logout" ? (
-                <NavLink href={link.href}>
-                  {link.children ? link.children : link.text}
-                </NavLink>
-              ) : (
-                <button
-                  className={clsx(
-                    "font-semibold text-xl text-violet-200 relative",
-                    'after:content-[""] after:absolute after:left-0 after:-bottom-1 after:h-1 after:w-full after:scale-x-0 after:bg-violet-400 hover:text-violet-300 after:transition-transform after:duration-300 after:ease-out',
-                    "hover:after:scale-x-100 hover:cursor-pointer"
-                  )}
-                >
-                  {link.children ? link.children : link.tetx}
-                </button>
-              )}
-            </NavItem>
+            link.component
           ))}
         </Nav>
       </Navbar>
