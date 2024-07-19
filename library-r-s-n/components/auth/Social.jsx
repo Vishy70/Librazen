@@ -11,8 +11,8 @@ export function Social() {
         size="md"
         variant="outline"
         className={"flex p-1 w-full gap-3"}
-        onClick={async () => {
-            await OAuthSignIn('github')
+        onClick={() => {
+            window.alert('GitHub button not working right now :(')
         }}
       >
         <FaGithub className="h-7 w-7" />
@@ -21,3 +21,7 @@ export function Social() {
     </form>
   );
 }
+
+// async () => {
+//     await OAuthSignIn('github')
+// }
